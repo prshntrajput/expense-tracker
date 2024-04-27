@@ -27,7 +27,7 @@ const SideNav = () => {
     id:3,
     name:"Expense",
     icon:ReceiptText,
-    path:"/dashboard/expense"
+    path:"/dashboard/expenses"
   },
   {
     id:4,

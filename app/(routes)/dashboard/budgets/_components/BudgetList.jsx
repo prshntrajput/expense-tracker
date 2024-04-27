@@ -29,7 +29,7 @@ const BudgetList = () => {
         setBudgets(result);
      }
   return (
-    <div className='grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-2'>
+    <div className='grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-2 '>
         <CreateBudget/>
 
         {budgets.map((budget)=>(<BudgetItem key={budget.id} budget={budget}/>))}

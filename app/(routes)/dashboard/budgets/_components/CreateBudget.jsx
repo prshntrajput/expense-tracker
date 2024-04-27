@@ -8,7 +8,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+  DialogTrigger,Label
 } from "../../../../../@/components/ui/dialog"
 import EmojiPicker from 'emoji-picker-react';
 import { Button } from '../../../../../components/ui/button';
@@ -43,55 +43,57 @@ const CreateBudget = () => {
     }
 
   return (
-    <div className='mt-4'>
-         
-            <Dialog>
-            <DialogTrigger>
-                        <div className=' p-4 px-10 bg-blue-200 flex items-center flex-col justify-center border-dashed border-2 border-gray-400 shadow-md gap-2 cursor-pointer hover:bg-blue-300'>
+    
+     <div className='overflow-y-auto'>
+        <Dialog>
+      <DialogTrigger asChild>
+        <div className=' p-4 px-10 bg-blue-200 flex items-center flex-col justify-center border-dashed border-2 border-gray-400 shadow-md gap-2 cursor-pointer hover:bg-blue-300 mt-4'>
             <h2 className='text-3xl text-blue-600'>+</h2>
             <h2 className='font-bold text-blue-600'>Create New Budget</h2>
-
         </div>
-            </DialogTrigger>
-            <div className='xl:w-[50vh] xl:-mb-28'>
-            <DialogContent className="xl:w-[50%] z-100  xl:left-[19%]  rounded-md shadow-md">
-              <DialogHeader>
-                
-              <DialogTitle>Create New Budget</DialogTitle>
-             <DialogDescription className="">
-                <Button className="bg-gray-400" onClick={()=>(setEmojiPick(!EmojiPick))}
-                
-                >{EmojiIcon}</Button>
-                <div className='mt-10'>
-                    <EmojiPicker open={EmojiPick} onEmojiClick={(e)=>{setEmojiIcon(e.emoji) , setEmojiPick(false) }}/>
-                </div>
-
-                <div className='my-2'>
-                    <h2 className='font-bold'>Budget Name</h2>
-                    <Input placeholder="e.g. Home, Decor" onChange={(e)=>(setBudgetName(e.target.value))} />
-                </div>
-               <div className='my-2'>
-                    <h2 className='font-bold'>Budget Amount</h2>
-                    <Input type="number" placeholder="e.g. 5000" onChange={(e)=>(setUserBudget(e.target.value))} />
-                </div>    
-
-                
-
-             </DialogDescription>
-             
-           </DialogHeader>
-           <DialogClose>
-           <DialogFooter>
-             <Button disabled={!(BudgetName&&UserBudget)} onClick={()=>(onCreatedBudget())} className="bg-blue-600">Submit</Button>
-           </DialogFooter>
-           </DialogClose>
-          </DialogContent>
+      </DialogTrigger>
+      <div className='relative'>
+      <div className='absolute inset-x-0 top-0'>
+      <DialogContent className="sm:max-w-[425px] bottom-[40%] xl:left-[19%]">
+        <DialogHeader>
+          <DialogTitle>Create New Budget</DialogTitle>
+          <DialogDescription>
+           <Button className="bg-gray-400" onClick={()=>(setEmojiPick(!EmojiPick))}>{EmojiIcon}</Button>
+           <EmojiPicker className='-mb-80 z-50' open={EmojiPick} onEmojiClick={(e)=>{setEmojiIcon(e.emoji) , setEmojiPick(false) }}/>
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          <div className="grid grid-cols-4 items-center gap-4">
+           
+            <Input className="col-span-3"  placeholder="e.g. Home, Decor" onChange={(e)=>(setBudgetName(e.target.value))} />
+           
           </div>
-               </Dialog>
-</div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            
+            <Input className="col-span-3" type="number" placeholder="e.g. 5000" onChange={(e)=>(setUserBudget(e.target.value))} />
+          </div>
+        </div>
+        <DialogClose>
+        <DialogFooter>
+          <Button disabled={!(BudgetName&&UserBudget)} onClick={()=>(onCreatedBudget())} className="bg-blue-600">Submit</Button>
+        </DialogFooter>
+        </DialogClose>
+      </DialogContent>
+      </div>
+      </div>
+
+    </Dialog>
+    </div>
+    
+
         
     
   )
 }
 
-export default CreateBudget
+export default CreateBudget;
+
+
+
+
+
