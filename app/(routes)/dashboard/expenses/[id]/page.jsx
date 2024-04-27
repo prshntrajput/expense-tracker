@@ -2,23 +2,26 @@
 
 
 import React, { useEffect, useState } from 'react'
-import { eq, getTableColumns, sql } from 'drizzle-orm'
+import { desc, eq, getTableColumns, sql } from 'drizzle-orm'
 import db from '../../../../../utils/dbConfig'
 import { Budgets, Expenses } from '../../../../../utils/schema'
 import { useUser } from '@clerk/nextjs'
 import BudgetItem from '../../budgets/_components/BudgetItem'
 import AddExpense from '../_components/add-expense/AddExpense'
+import ExpenseList from '../_components/expense-list/ExpenseList'
 
 const Expense = ({params}) => {
    
 
     const [budgetInfo,setBudgetInfo]=useState([]);
+    const [expenseList,setexpenseList] = useState([]);
     const {user}= useUser();
 
     useEffect(()=>{
         user&&getBudgetList();
+        getExpenseList();
     },[user])
-
+  /** get Budget List **/
     const getBudgetList=async ()=>{
      const result=  await db.select({
         ...getTableColumns(Budgets),totalSpend: sql `sum(${Expenses.amount})`.mapWith(Number),
@@ -31,6 +34,14 @@ const Expense = ({params}) => {
 
      }
 
+     /**GET EXPENSE LIST **/
+
+    const getExpenseList = async ()=>{
+        const result = (await db.select().from(Expenses).where(eq(Expenses.budgetId,params.id)).orderBy(desc(Expenses.id)))
+        
+        setexpenseList(result);
+    }
+
   return (
     <div className='p-2'>
         <h2 className='text-2xl font-bold'>My Expenses</h2>
@@ -40,6 +51,7 @@ const Expense = ({params}) => {
                 </div>}
                  <AddExpense budgetId={params.id} user={user} refreshData={()=>(getBudgetList())}/>
         </div>
+        <ExpenseList list={expenseList} refreshData={()=>getExpenseList()}/>
         
         </div>
   )

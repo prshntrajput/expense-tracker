@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import db from '../../../../../../utils/dbConfig';
 import { Budgets, Expenses } from '../../../../../../utils/schema';
 import { toast } from 'sonner';
+import moment from 'moment';
 
 const AddExpense = ({budgetId, user ,refreshData}) => {
 
@@ -13,7 +14,7 @@ const AddExpense = ({budgetId, user ,refreshData}) => {
      const addExpenseInfo = async ()=> {
     const result = await db.insert(Expenses).values({name:expenseName,
         amount:expenseAmount,
-        createdAt:user?.primaryEmailAddress?.emailAddress,
+        createdAt:moment().format("DD/MM/yyy"),
         budgetId:budgetId}).returning({insertedId:Budgets.id});
 
         if(result){
