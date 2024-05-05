@@ -25,11 +25,11 @@ const ExpenseList = ({list, refreshData}) => {
             <h2>Date</h2>
             <h2>Action</h2>
         </div>
-        {list.map((expense,index)=>( <div className='grid grid-cols-4 bg-slate-100 text-sm p-2 rounded-sm font-semibold'>
+        {list.map((expense,index)=>( <div key={expense.id} className='grid grid-cols-4 bg-slate-100 text-sm p-2 rounded-sm font-semibold'>
             <h2>{expense.name}</h2>
             <h2>{expense.amount}</h2>
             <h2>{expense.createdAt}</h2>
-            <Trash className='text-red-600 mx-4' onClick={()=>(deleteExpense(expense))} expesne={expense}/>
+            <Trash className='text-red-600 mx-4 cursor-pointer' onClick={()=>(deleteExpense(expense))} expesne={expense}/>
         </div>))}
     </div>
   )

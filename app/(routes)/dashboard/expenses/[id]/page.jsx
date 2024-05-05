@@ -110,7 +110,7 @@ const Expense = ({params}) => {
             {budgetInfo? <BudgetItem budget={budgetInfo}/> : <div className='h-[150px] w-full bg-slate-200 rounded-lg animate-pulse'>
                
                 </div>}
-                 <AddExpense budgetId={params.id} user={user} refreshData={()=>(getBudgetList())}/>
+                 <AddExpense budgetId={params.id} user={user} refreshData={()=>(getExpenseList())}/>
         </div>
         <ExpenseList list={expenseList} refreshData={()=>getExpenseList()}/>
         

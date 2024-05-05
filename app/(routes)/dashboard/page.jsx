@@ -4,15 +4,17 @@ import { UserButton, useUser } from '@clerk/nextjs'
 import React, { useEffect, useState } from 'react'
 import DashboardHeader from './_components/DashboardHeader'
 import CardsInfo from "../dashboard/_components/cards-info/CardsInfo"
-import { eq, getTableColumns, sql } from 'drizzle-orm'
+import { desc, eq, getTableColumns, sql } from 'drizzle-orm'
 import db from '../../../utils/dbConfig'
 import { Budgets, Expenses } from '../../../utils/schema'
 import BarChartDashboard from "../dashboard/_components/bar-chart/BarChartDashboard"
 import BudgetItem from './budgets/_components/BudgetItem'
+import ExpenseList from './expenses/_components/expense-list/ExpenseList'
 
 const page = () => {
  
    const [budgets,setBudgets]=useState([]);
+   const [expenseList,setExpenseList]= useState([]);
     const {user}= useUser();
 
     useEffect(()=>{
@@ -29,6 +31,18 @@ const page = () => {
         .leftJoin(Expenses,eq(Budgets.id,Expenses.budgetId))
         .where(eq(Budgets.createdBy,user?.primaryEmailAddress?.emailAddress)).groupBy(Budgets.id);
         setBudgets(result);
+        getAllExpenses();
+     }
+
+     const getAllExpenses =async ()=>{
+      const result = await db.select({
+        id:Expenses.id,
+        name:Expenses.name,
+        amount:Expenses.amount,
+        createdAt:Expenses.createdAt
+      }).from(Budgets).rightJoin(Expenses,eq(Budgets.id,Expenses.budgetId)).where(eq(Budgets.createdBy,user?.primaryEmailAddress.emailAddress)).orderBy(desc(Expenses.id));
+
+      setExpenseList(result);
      }
 
   return (
@@ -46,6 +60,9 @@ const page = () => {
             <div className='xl:col-span-2'>
                  <BarChartDashboard
                  budgetList={budgets}/>
+
+                 <ExpenseList list={expenseList}
+                 refreshData={()=>getBudgetList()}/>
             </div>
             <div>
               {budgets.map((budget,index)=>(<BudgetItem key={index} budget={budget}/>))}

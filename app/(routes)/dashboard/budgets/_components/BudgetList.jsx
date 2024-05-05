@@ -30,9 +30,9 @@ const BudgetList = () => {
      }
   return (
     <div className='grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-2 '>
-        <CreateBudget/>
+        <CreateBudget  refreshData={()=>getBudgetList()}/>
 
-        {budgets.map((budget)=>(<BudgetItem key={budget.id} budget={budget}/>))}
+        {budgets.map((budget)=>(<BudgetItem key={budget.id} budget={budget} />))}
     </div>
   )
 }

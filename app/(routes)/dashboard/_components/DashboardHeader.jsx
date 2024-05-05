@@ -5,8 +5,8 @@ import React from 'react'
 const DashboardHeader = () => {
   return (
     <div className='w-full flex p-5 shadow-md items-center justify-between'>
-      <div>
-        SearchBar
+      <div className='font-bold text-xl text-blue-400 hover:text-blue-800 rounded-md'>
+        Expense Tracker
       </div>
        <UserButton/>
     </div>

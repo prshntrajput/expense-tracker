@@ -21,7 +21,7 @@ import { DialogClose } from '@radix-ui/react-dialog';
 
 
 
-const CreateBudget = () => {
+const CreateBudget = ({refreshData}) => {
 
     const [EmojiIcon,setEmojiIcon] = useState("😊");
     const [EmojiPick,setEmojiPick]=useState(false);
@@ -38,6 +38,7 @@ const CreateBudget = () => {
              icon:EmojiIcon}).returning({insertedId:Budgets.id})
 
              if(result){
+              refreshData();
                toast("New Budget Created")
              }
     }
