@@ -7,6 +7,8 @@ import CardsInfo from "../dashboard/_components/cards-info/CardsInfo"
 import { eq, getTableColumns, sql } from 'drizzle-orm'
 import db from '../../../utils/dbConfig'
 import { Budgets, Expenses } from '../../../utils/schema'
+import BarChartDashboard from "../dashboard/_components/bar-chart/BarChartDashboard"
+import BudgetItem from './budgets/_components/BudgetItem'
 
 const page = () => {
  
@@ -39,6 +41,16 @@ const page = () => {
           <p className='text-sm text-gray-600'>Let's manage your expense</p></div>
 
           <CardsInfo budgetList={budgets}/>
+
+          <div className='grid grid-cols-1 xl:grid-cols-3 px-4 gap-2'>
+            <div className='xl:col-span-2'>
+                 <BarChartDashboard
+                 budgetList={budgets}/>
+            </div>
+            <div>
+              {budgets.map((budget,index)=>(<BudgetItem key={index} budget={budget}/>))}
+            </div>
+          </div>
       </div>
   )
 }
