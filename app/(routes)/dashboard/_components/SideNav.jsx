@@ -44,7 +44,7 @@ const SideNav = () => {
 
    <div className='flex flex-col gap-6 justify-center'>
 
-    {menuList.map((items)=>(<Link href={items.path}><h1 key={items.id} className={`flex gap-1 ${path==items.path && "text-blue-600 bg-blue-100" } hover:bg-blue-200 p-4 rounded-md`}><items.icon/>{items.name}</h1></Link>))}
+    {menuList.map((items)=>(<Link href={items.path} key={items.id}><h1  className={`flex gap-1 ${path==items.path && "text-blue-600 bg-blue-100" } hover:bg-blue-200 p-4 rounded-md`}><items.icon/>{items.name}</h1></Link>))}
 
     <div className='flex gap-4 text-blue-600 fixed bottom-10'>
     <UserButton/>
